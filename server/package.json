@@ -1,0 +1,11 @@
+{
+  "name": "server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch --env-file=../.env src/index.js",
+    "start": "node src/index.js",
+    "db:setup": "node --env-file=../.env src/setup.js"
+  },
+  "dependencies": { "cors": "^2.8.5", "express": "^4.21.0", "pg": "^8.13.0" }
+}

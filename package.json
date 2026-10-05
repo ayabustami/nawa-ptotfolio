@@ -1,0 +1,12 @@
+{
+  "name": "nawa-technology",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n api,web \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w client",
+    "db:setup": "npm run db:setup -w server"
+  },
+  "workspaces": ["server", "client"],
+  "devDependencies": { "concurrently": "^9.0.0" }
+}
