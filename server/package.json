@@ -5,7 +5,12 @@
   "scripts": {
     "dev": "node --watch --env-file=../.env src/index.js",
     "start": "node src/index.js",
+    "db:migrate": "node --env-file=../.env src/migrate.js",
     "db:setup": "node --env-file=../.env src/setup.js"
   },
-  "dependencies": { "cors": "^2.8.5", "express": "^4.21.0", "pg": "^8.13.0" }
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "pg": "^8.13.0"
+  }
 }

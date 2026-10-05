@@ -1,0 +1,291 @@
+    .admin-technologies {
+    width: 100%;
+    }
+
+    .admin-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+    }
+
+    .admin-page-header h1 {
+    margin: 6px 0 8px;
+    font-size: 34px;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    }
+
+    .admin-page-header p {
+    margin: 0;
+    color: #8f8b82;
+    font-size: 14px;
+    }
+
+    .admin-eyebrow {
+    color: #8f8b82;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    }
+
+    .admin-page-count {
+    color: #8f8b82;
+    font-size: 13px;
+    }
+
+    .technology-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+    }
+
+    .technology-summary-card {
+    padding: 20px;
+    border: 1px solid #292824;
+    background: #11110f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+
+    .technology-summary-card span {
+    color: #a9a49a;
+    font-size: 13px;
+    }
+
+    .technology-summary-card strong {
+    font-size: 24px;
+    font-weight: 500;
+    }
+
+    .technology-form-card,
+    .technology-list-card {
+    border: 1px solid #292824;
+    background: #11110f;
+    }
+
+    .technology-form-card {
+    padding: 24px;
+    margin-bottom: 24px;
+    }
+
+    .technology-form-header {
+    margin-bottom: 22px;
+    }
+
+    .technology-form-header h2,
+    .technology-list-header h2 {
+    margin: 6px 0 0;
+    font-size: 19px;
+    font-weight: 500;
+    }
+
+    .technology-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px auto;
+    gap: 14px;
+    align-items: end;
+    }
+
+    .technology-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    }
+
+    .technology-field label {
+    color: #a9a49a;
+    font-size: 12px;
+    }
+
+    .technology-field input,
+    .technology-field select,
+    .technology-search,
+    .technology-table-row input,
+    .technology-table-row select {
+    width: 100%;
+    height: 44px;
+    padding: 0 13px;
+    border: 1px solid #34322d;
+    background: #0b0b0a;
+    color: #f4f0e8;
+    outline: none;
+    font: inherit;
+    }
+
+    .technology-field input:focus,
+    .technology-field select:focus,
+    .technology-search:focus,
+    .technology-table-row input:focus,
+    .technology-table-row select:focus {
+    border-color: #6d815d;
+    }
+
+    .technology-primary-button {
+    height: 44px;
+    padding: 0 20px;
+    border: 1px solid #849a70;
+    background: #849a70;
+    color: #0b0b0a;
+    cursor: pointer;
+    font: inherit;
+    }
+
+    .technology-primary-button:hover {
+    background: #9caf89;
+    }
+
+    .technology-primary-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    }
+
+    .admin-error {
+    margin-bottom: 24px;
+    padding: 14px 16px;
+    border: 1px solid #613535;
+    background: #211313;
+    color: #e8b6b6;
+    font-size: 13px;
+    }
+
+    .technology-list-header {
+    padding: 24px;
+    border-bottom: 1px solid #292824;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    }
+
+    .technology-search {
+    max-width: 280px;
+    }
+
+    .technology-table-head,
+    .technology-table-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) 180px 100px 190px;
+    gap: 20px;
+    align-items: center;
+    padding: 16px 24px;
+    }
+
+    .technology-table-head {
+    border-bottom: 1px solid #292824;
+    color: #77736b;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    }
+
+    .technology-table-row {
+    min-height: 68px;
+    border-bottom: 1px solid #22211e;
+    color: #a9a49a;
+    font-size: 13px;
+    }
+
+    .technology-table-row:last-child {
+    border-bottom: 0;
+    }
+
+    .technology-table-row strong {
+    color: #f4f0e8;
+    font-weight: 500;
+    }
+
+    .technology-category {
+    display: inline-flex;
+    width: fit-content;
+    padding: 6px 9px;
+    border: 1px solid #34322d;
+    color: #a9a49a;
+    font-size: 11px;
+    }
+
+    .technology-actions {
+    display: flex;
+    gap: 8px;
+    }
+
+    .technology-actions button {
+    border: 1px solid #34322d;
+    background: transparent;
+    color: #aaa59b;
+    padding: 7px 11px;
+    cursor: pointer;
+    font: inherit;
+    font-size: 12px;
+    }
+
+    .technology-actions button:hover {
+    border-color: #6d685f;
+    color: #f4f0e8;
+    }
+
+    .technology-actions button.danger:hover {
+    border-color: #744343;
+    color: #e8b6b6;
+    }
+
+    .technology-edit-name {
+    min-width: 0;
+    }
+
+    .admin-empty-state {
+    padding: 50px 24px;
+    text-align: center;
+    color: #77736b;
+    font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+    .technology-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .technology-form {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .technology-primary-button {
+        width: 100%;
+    }
+
+    .technology-table {
+        overflow-x: auto;
+    }
+
+    .technology-table-head,
+    .technology-table-row {
+        min-width: 780px;
+    }
+    }
+
+    @media (max-width: 600px) {
+    .admin-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .technology-summary {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .technology-form {
+        grid-template-columns: 1fr;
+    }
+
+    .technology-list-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .technology-search {
+        max-width: none;
+    }
+    }

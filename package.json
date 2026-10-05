@@ -1,12 +1,16 @@
 {
-  "name": "nawa-technology",
+  "name": "server",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently -n api,web \"npm run dev -w server\" \"npm run dev -w client\"",
-    "build": "npm run build -w client",
-    "db:setup": "npm run db:setup -w server"
-  },
-  "workspaces": ["server", "client"],
-  "devDependencies": { "concurrently": "^9.0.0" }
+  "dev": "node --watch --env-file=../.env src/index.js",
+  "start": "node src/index.js",
+  "db:migrate": "node --env-file=../.env src/migrate.js",
+  "db:setup": "node --env-file=../.env src/setup.js"
+},
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "pg": "^8.13.0"
+  }
 }

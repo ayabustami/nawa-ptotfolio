@@ -31,10 +31,29 @@ function Project({ p }) {
             <ul className="tags">{other.map((f) => <li key={f.label}>{f.label}</li>)}</ul>
           </>
         )}
-        {(p.projectUrl || p.githubUrl) && (
+        {(p.liveUrl || p.githubUrl) && (
           <div className="project-links">
-            {p.projectUrl && <a className="btn btn-sm" href={p.projectUrl} target="_blank" rel="noopener noreferrer">Visit {p.title}</a>}
-            {p.githubUrl && <a className="btn btn-sm" href={p.githubUrl} target="_blank" rel="noopener noreferrer">View on GitHub</a>}
+            {p.liveUrl && (
+              <a
+                className="btn btn-sm"
+                href={p.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Visit {p.title}
+              </a>
+            )}
+
+            {p.githubUrl && (
+              <a
+                className="btn btn-sm"
+                href={p.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View on GitHub
+              </a>
+            )}
           </div>
         )}
       </div>
