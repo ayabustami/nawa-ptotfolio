@@ -1769,6 +1769,39 @@ app.delete(
     }
   }
 );
+app.get('/api/admin/dashboard', requireAdmin, async (_req, res) => {
+  try {
+    const [projectsResult, inquiriesResult, technologiesResult] =
+      await Promise.all([
+        pool.query(`
+          SELECT COUNT(*)::int AS count
+          FROM projects
+        `),
+
+        pool.query(`
+          SELECT COUNT(*)::int AS count
+          FROM contact_inquiries
+        `),
+
+        pool.query(`
+          SELECT COUNT(*)::int AS count
+          FROM technologies
+        `),
+      ]);
+
+    res.json({
+      projects: projectsResult.rows[0].count,
+      inquiries: inquiriesResult.rows[0].count,
+      technologies: technologiesResult.rows[0].count,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: 'Could not load dashboard statistics.',
+    });
+  }
+});
 app.get(
   '/api/admin/inquiries',
   requireAdmin,
