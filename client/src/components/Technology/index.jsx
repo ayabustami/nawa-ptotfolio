@@ -10,7 +10,9 @@ export default function Technology() {
 
     async function loadTechnologies() {
       try {
-        const response = await fetch('/api/technologies');
+        const API_URL = import.meta.env.VITE_API_URL;
+
+        const response = await fetch(`${API_URL}/api/technologies`);
 
         if (!response.ok) {
           throw new Error('Failed to load technologies.');
