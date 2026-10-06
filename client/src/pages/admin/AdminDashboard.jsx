@@ -16,12 +16,14 @@ export default function AdminDashboard() {
 
     async function loadDashboard() {
       try {
-        const API_URL = import.meta.env.VITE_API_URL;
+        const API_URL = import.meta.env.VITE_API_URL || '';
 
         const response = await fetch(
-          `${API_URL}/api/admin/dashboard`
+        `${API_URL}/api/admin/dashboard`,
+        {
+            credentials: 'include',
+        }
         );
-
         if (!response.ok) {
           throw new Error('Failed to load dashboard statistics.');
         }

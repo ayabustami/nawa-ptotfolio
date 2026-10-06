@@ -1,4 +1,4 @@
-    import { useState } from 'react';
+import { useState } from 'react';
     import { useNavigate } from 'react-router-dom';
     import './AdminLogin.css';
 
@@ -17,12 +17,10 @@
         setError('');
         setLoading(true);
 
-        try {
-        const API_URL = import.meta.env.VITE_API_URL;
-
-        const response = await fetch(
-            `${API_URL}/api/admin/login`,
-            {
+       try {
+    const response = await fetch(
+        '/api/admin/login',
+        {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,23 +30,23 @@
                 email,
                 password,
             }),
-            }
-        );
+        }
+    );
 
-        const data = await response.json();
+    const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error(
+    if (!response.ok) {
+        throw new Error(
             data.error || 'Unable to sign in.'
-            );
-        }
+        );
+    }
 
-        navigate('/admin', { replace: true });
-        } catch (error) {
-        setError(error.message);
-        } finally {
-        setLoading(false);
-        }
+    navigate('/admin', { replace: true });
+} catch (error) {
+    setError(error.message);
+} finally {
+    setLoading(false);
+}
     }
 
     return (
