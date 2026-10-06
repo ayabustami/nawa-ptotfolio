@@ -166,14 +166,15 @@ export async function deleteAdminSession(req, res) {
   }
 
   const secure =
-    process.env.NODE_ENV === 'production'
-      ? ' Secure;'
-      : '';
-
+  process.env.NODE_ENV === 'production'
+    ? ' Secure;'
+    : '';
+console.log('[AUTH] NODE_ENV:', process.env.NODE_ENV);
+console.log('[AUTH] SETTING SECURE COOKIE:', process.env.NODE_ENV === 'production');
   res.setHeader(
     'Set-Cookie',
-    `${SESSION_COOKIE}=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0;${secure}`
+    `${getSessionCookieName()}=${encodeURIComponent(token)}; HttpOnly; SameSite=None; Path=/; Max-Age=43200;${secure}`
   );
-
+console.log('[AUTH] COOKIE HEADER SET');
   res.json({ ok: true });
 }
