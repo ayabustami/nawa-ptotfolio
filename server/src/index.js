@@ -258,9 +258,13 @@ app.post('/api/admin/login', async (req, res) => {
     );
 
     res.setHeader(
-      'Set-Cookie',
-      `${getSessionCookieName()}=${encodeURIComponent(token)}; HttpOnly; SameSite=None; Path=/; Max-Age=43200;${secure}`
-    );
+  'Set-Cookie',
+  `${getSessionCookieName()}=${encodeURIComponent(token)}; HttpOnly; SameSite=None; Path=/; Max-Age=43200;${secure}`
+);
+console.log(
+  '[AUTH] SET-COOKIE VALUE:',
+  res.getHeader('Set-Cookie')
+);
 
     console.log('[AUTH] COOKIE HEADER SET');
 
