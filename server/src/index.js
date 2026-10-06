@@ -186,7 +186,6 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 app.post('/api/admin/login', async (req, res) => {
-  console.log('🔥 ADMIN LOGIN ROUTE HIT', req.body);
 
   try {
     const { email, password } = req.body || {};
@@ -245,7 +244,7 @@ res.setHeader(
   'Set-Cookie',
   `${getSessionCookieName()}=${encodeURIComponent(token)}; HttpOnly; SameSite=None; Path=/; Max-Age=43200;${secure}`
 );
-console.log('🔥 ADMIN LOGIN SUCCESS');
+
 
     res.json({
       ok: true,

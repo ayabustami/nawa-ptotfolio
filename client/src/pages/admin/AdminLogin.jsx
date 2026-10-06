@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './AdminLogin.css';
+    import { useState } from 'react';
+    import { useNavigate } from 'react-router-dom';
+    import './AdminLogin.css';
 
-const API_URL = import.meta.env.VITE_API_URL || '';
+    const API_URL = import.meta.env.VITE_API_URL || '';
 
     export default function AdminLogin() {
     const navigate = useNavigate();
@@ -14,44 +14,43 @@ const API_URL = import.meta.env.VITE_API_URL || '';
     const [loading, setLoading] = useState(false);
 
     async function handleSubmit(event) {
-        const API_URL = import.meta.env.VITE_API_URL || '';
         event.preventDefault();
 
         setError('');
         setLoading(true);
 
-       try {
-        const API_URL = import.meta.env.VITE_API_URL || '';
-
-       const response = await fetch(
-    `${API_URL}/api/admin/login`,
-    {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-            email,
-            password,
-        }),
-    }
-);
-
-    const data = await response.json();
-
-    if (!response.ok) {
-        throw new Error(
-            data.error || 'Unable to sign in.'
+        try {
+        const response = await fetch(
+            `${API_URL}/api/admin/login`,
+            {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                email,
+                password,
+            }),
+            }
         );
-    }
 
-    navigate('/admin', { replace: true });
-} catch (error) {
-    setError(error.message);
-} finally {
-    setLoading(false);
-}
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+            data.error || 'Unable to sign in.'
+            );
+        }
+
+        // Login succeeded
+        window.location.replace('/admin');
+
+        } catch (error) {
+        setError(error.message);
+        } finally {
+        setLoading(false);
+        }
     }
 
     return (
