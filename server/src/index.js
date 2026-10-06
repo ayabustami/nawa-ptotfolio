@@ -187,12 +187,10 @@ app.post('/api/contact', async (req, res) => {
 });
 
 app.post('/api/admin/login', async (req, res) => {
-      console.log('[AUTH] LOGIN REQUEST');
+  console.log('[AUTH] LOGIN REQUEST');
 
   try {
-
     const { email, password } = req.body || {};
-
 
     const cleanEmail =
       typeof email === 'string'
@@ -212,7 +210,10 @@ app.post('/api/admin/login', async (req, res) => {
       process.env.ADMIN_PASSWORD_HASH || '';
 
     if (!adminEmail || !passwordHash) {
-      console.error('Admin credentials are not configured.');
+      console.error(
+        '[AUTH] Admin credentials are not configured.'
+      );
+
       return res.status(500).json({
         error: 'Admin authentication is not configured.'
       });
@@ -237,19 +238,31 @@ app.post('/api/admin/login', async (req, res) => {
 
     const { token, expiresAt } =
       await createAdminSession(adminEmail);
-      console.log('[AUTH] SESSION CREATED');
-console.log('[AUTH] expiresAt:', expiresAt);
+
+    console.log('[AUTH] SESSION CREATED');
+    console.log('[AUTH] expiresAt:', expiresAt);
 
     const secure =
-  process.env.NODE_ENV === 'production'
-    ? ' Secure;'
-    : '';
+      process.env.NODE_ENV === 'production'
+        ? ' Secure;'
+        : '';
 
-res.setHeader(
-  'Set-Cookie',
-  `${getSessionCookieName()}=${encodeURIComponent(token)}; HttpOnly; SameSite=None; Path=/; Max-Age=43200;${secure}`
-);
+    console.log(
+      '[AUTH] NODE_ENV:',
+      process.env.NODE_ENV
+    );
 
+    console.log(
+      '[AUTH] SETTING SECURE COOKIE:',
+      process.env.NODE_ENV === 'production'
+    );
+
+    res.setHeader(
+      'Set-Cookie',
+      `${getSessionCookieName()}=${encodeURIComponent(token)}; HttpOnly; SameSite=None; Path=/; Max-Age=43200;${secure}`
+    );
+
+    console.log('[AUTH] COOKIE HEADER SET');
 
     res.json({
       ok: true,
@@ -259,7 +272,7 @@ res.setHeader(
       expiresAt
     });
   } catch (error) {
-    console.error(error);
+    console.error('[AUTH] LOGIN ERROR:', error);
 
     res.status(500).json({
       error: 'Could not log in.'
