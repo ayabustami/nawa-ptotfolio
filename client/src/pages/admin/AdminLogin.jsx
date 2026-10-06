@@ -1,6 +1,8 @@
 import { useState } from 'react';
-    import { useNavigate } from 'react-router-dom';
-    import './AdminLogin.css';
+import { useNavigate } from 'react-router-dom';
+import './AdminLogin.css';
+
+const API_URL = import.meta.env.VITE_API_URL || '';
 
     export default function AdminLogin() {
     const navigate = useNavigate();
@@ -12,26 +14,29 @@ import { useState } from 'react';
     const [loading, setLoading] = useState(false);
 
     async function handleSubmit(event) {
+        const API_URL = import.meta.env.VITE_API_URL || '';
         event.preventDefault();
 
         setError('');
         setLoading(true);
 
        try {
-    const response = await fetch(
-        '/api/admin/login',
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-            body: JSON.stringify({
-                email,
-                password,
-            }),
-        }
-    );
+        const API_URL = import.meta.env.VITE_API_URL || '';
+
+       const response = await fetch(
+    `${API_URL}/api/admin/login`,
+    {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+            email,
+            password,
+        }),
+    }
+);
 
     const data = await response.json();
 
