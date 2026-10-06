@@ -1,7 +1,9 @@
 import crypto from 'node:crypto';
+
 import {
   hashSessionToken
 } from './auth.js';
+
 import { pool } from './db.js';
 
 const SESSION_COOKIE = 'nawa_admin_session';
@@ -79,7 +81,9 @@ export async function requireAdmin(req, res, next) {
     );
 
     if (!token) {
-      console.log('[AUTH] REQUIRE ADMIN → 401 NO COOKIE');
+      console.log(
+        '[AUTH] REQUIRE ADMIN → 401 NO COOKIE'
+      );
 
       return res.status(401).json({
         error: 'Authentication required.'
@@ -138,7 +142,10 @@ export async function requireAdmin(req, res, next) {
 
     next();
   } catch (error) {
-    console.error('[AUTH] REQUIRE ADMIN ERROR:', error);
+    console.error(
+      '[AUTH] REQUIRE ADMIN ERROR:',
+      error
+    );
 
     res.status(500).json({
       error: 'Authentication check failed.'
@@ -166,15 +173,16 @@ export async function deleteAdminSession(req, res) {
   }
 
   const secure =
-  process.env.NODE_ENV === 'production'
-    ? ' Secure;'
-    : '';
-console.log('[AUTH] NODE_ENV:', process.env.NODE_ENV);
-console.log('[AUTH] SETTING SECURE COOKIE:', process.env.NODE_ENV === 'production');
+    process.env.NODE_ENV === 'production'
+      ? ' Secure;'
+      : '';
+
   res.setHeader(
     'Set-Cookie',
-    `${getSessionCookieName()}=${encodeURIComponent(token)}; HttpOnly; SameSite=None; Path=/; Max-Age=43200;${secure}`
+    `${SESSION_COOKIE}=; HttpOnly; SameSite=None; Path=/; Max-Age=0;${secure}`
   );
-console.log('[AUTH] COOKIE HEADER SET');
-  res.json({ ok: true });
+
+  res.json({
+    ok: true
+  });
 }
