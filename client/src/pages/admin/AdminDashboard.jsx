@@ -17,12 +17,15 @@ export default function AdminDashboard() {
 
     async function loadDashboard() {
       try {
-        const API_URL = import.meta.env.VITE_API_URL || '';
 
         const response = await fetch(
         `${API_URL}/api/admin/dashboard`,
         {
+            method: 'GET',
             credentials: 'include',
+            cache: 'no-store',
+
+            
         }
         );
         if (!response.ok) {

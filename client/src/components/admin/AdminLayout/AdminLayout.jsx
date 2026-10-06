@@ -18,40 +18,108 @@
     const [loggingOut, setLoggingOut] = useState(false);
 
     useEffect(() => {
-        async function loadAdmin() {
-        try {
-            const response = await fetch(`${API_URL}/api/admin/me`, {
-                credentials: 'include',
-                cache: 'no-store',
-                });
+  console.log('[ADMIN LAYOUT] mounted');
 
-            if (!response.ok) {
-            navigate('/admin/login', { replace: true });
-            return;
-            }
+  async function loadAdmin() {
+    console.log(
+      '[ADMIN LAYOUT] checking /api/admin/me'
+    );
 
-            const data = await response.json();
-            setAdmin(data.admin);
-        } catch {
-            navigate('/admin/login', { replace: true });
+    try {
+      const response = await fetch(
+        `${API_URL}/api/admin/me`,
+        {
+          credentials: 'include',
+          cache: 'no-store',
         }
-        }
+      );
 
-        loadAdmin();
-    }, [navigate]);
+      console.log(
+        '[ADMIN LAYOUT] /me status:',
+        response.status
+      );
+
+      console.log(
+        '[ADMIN LAYOUT] /me ok:',
+        response.ok
+      );
+
+      if (!response.ok) {
+        console.log(
+          '[ADMIN LAYOUT] /me failed → redirecting to login'
+        );
+
+        navigate('/admin/login', { replace: true });
+        return;
+      }
+
+      const data = await response.json();
+
+      console.log(
+        '[ADMIN LAYOUT] /me data:',
+        {
+          authenticated: data?.authenticated,
+          adminEmail: data?.admin?.email,
+        }
+      );
+
+      setAdmin(data.admin);
+
+      console.log(
+        '[ADMIN LAYOUT] admin loaded successfully'
+      );
+    } catch (error) {
+      console.error(
+        '[ADMIN LAYOUT] /me ERROR:',
+        error
+      );
+
+      console.log(
+        '[ADMIN LAYOUT] ERROR → redirecting to login'
+      );
+
+      navigate('/admin/login', { replace: true });
+    }
+  }
+
+  loadAdmin();
+
+  return () => {
+    console.log('[ADMIN LAYOUT] unmounted');
+  };
+}, [navigate]);
 
     async function handleLogout() {
-        setLoggingOut(true);
+  console.log('[ADMIN LOGOUT] started');
 
-        try {
-       await fetch(`${API_URL}/api/admin/logout`, {
+  setLoggingOut(true);
+
+  try {
+    const response = await fetch(
+      `${API_URL}/api/admin/logout`,
+      {
         method: 'POST',
         credentials: 'include',
-        });
-        } finally {
-        navigate('/admin/login', { replace: true });
-        }
-    }
+      }
+    );
+
+    console.log(
+      '[ADMIN LOGOUT] response:',
+      response.status
+    );
+  } catch (error) {
+    console.error(
+      '[ADMIN LOGOUT] ERROR:',
+      error
+    );
+  } finally {
+    console.log(
+      '[ADMIN LOGOUT] redirecting to login'
+    );
+
+    navigate('/admin/login', { replace: true });
+  }
+}
 
     return (
         <div className="admin-dashboard">

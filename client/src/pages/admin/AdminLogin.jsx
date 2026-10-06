@@ -14,44 +14,59 @@
     const [loading, setLoading] = useState(false);
 
     async function handleSubmit(event) {
-        event.preventDefault();
+  event.preventDefault();
+  setError('');
+  setLoading(true);
 
-        setError('');
-        setLoading(true);
+  console.log('[ADMIN LOGIN] submit started');
 
-        try {
-        const response = await fetch(
-            `${API_URL}/api/admin/login`,
-            {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-            body: JSON.stringify({
-                email,
-                password,
-            }),
-            }
-        );
+  try {
+    console.log('[ADMIN LOGIN] sending request to:', `${API_URL}/api/admin/login`);
 
-        const data = await response.json();
+    const response = await fetch(
+      `${API_URL}/api/admin/login`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }
+    );
 
-        if (!response.ok) {
-            throw new Error(
-            data.error || 'Unable to sign in.'
-            );
-        }
+    console.log('[ADMIN LOGIN] response status:', response.status);
+    console.log('[ADMIN LOGIN] response ok:', response.ok);
 
-        // Login succeeded
-        window.location.replace('/admin');
+    const data = await response.json();
 
-        } catch (error) {
-        setError(error.message);
-        } finally {
-        setLoading(false);
-        }
+    console.log('[ADMIN LOGIN] response data:', {
+      ok: data?.ok,
+      adminEmail: data?.admin?.email,
+      expiresAt: data?.expiresAt,
+      error: data?.error,
+    });
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Unable to sign in.');
     }
+
+    console.log('[ADMIN LOGIN] login successful');
+    console.log('[ADMIN LOGIN] navigating to /admin');
+
+    navigate('/admin', { replace: true });
+  } catch (error) {
+    console.error('[ADMIN LOGIN] ERROR:', error);
+
+    setError(error.message);
+  } finally {
+    console.log('[ADMIN LOGIN] loading finished');
+    setLoading(false);
+  }
+}
 
     return (
         <main className="admin-login">

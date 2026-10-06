@@ -262,6 +262,23 @@ res.setHeader(
   }
 });
 app.get('/api/admin/me', requireAdmin, (req, res) => {
+  console.log('[ADMIN ME] request received');
+
+  console.log('[ADMIN ME] authenticated admin:', {
+    email: req.admin?.email,
+    hasAdmin: Boolean(req.admin),
+  });
+
+  res.set('Cache-Control', 'no-store');
+
+  res.status(200).json({
+    authenticated: true,
+    admin: {
+      email: req.admin.email
+    }
+  });
+});
+app.get('/api/admin/me', requireAdmin, (req, res) => {
   res.json({
     authenticated: true,
     admin: {
