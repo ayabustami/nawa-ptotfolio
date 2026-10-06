@@ -1,6 +1,7 @@
     import { useEffect, useMemo, useState } from 'react';
     import AdminLayout from '../../components/admin/AdminLayout/AdminLayout';
     import './AdminTechnologies.css';
+    const API_URL = import.meta.env.VITE_API_URL || '';
 
     export default function AdminTechnologies() {
     const [technologies, setTechnologies] = useState([]);
@@ -36,10 +37,10 @@
             technologiesResponse,
             categoriesResponse,
         ] = await Promise.all([
-            fetch('/api/admin/technologies', {
+            fetch(`${API_URL}/api/admin/technologies`, {
             credentials: 'include',
             }),
-            fetch('/api/admin/technology-categories', {
+            fetch(`${API_URL}/api/admin/technology-categories`, {
             credentials: 'include',
             }),
         ]);
@@ -106,7 +107,7 @@
         setError('');
 
         const response = await fetch(
-            '/api/admin/technology-categories',
+            `${API_URL}/api/admin/technology-categories`,
             {
             method: 'POST',
             credentials: 'include',
@@ -172,7 +173,7 @@
         setError('');
 
         const response = await fetch(
-            `/api/admin/technology-categories/${id}`,
+            `${API_URL}/api/admin/technology-categories/${id}`,
             {
             method: 'PUT',
             credentials: 'include',
@@ -260,7 +261,7 @@
         setError('');
 
         const response = await fetch(
-            `/api/admin/technology-categories/${id}`,
+            `${API_URL}/api/admin/technology-categories/${id}`,
             {
             method: 'DELETE',
             credentials: 'include',
@@ -327,7 +328,7 @@
         setError('');
 
         const response = await fetch(
-            '/api/admin/technologies',
+            `${API_URL}/api/admin/technologies`,
             {
             method: 'POST',
             credentials: 'include',
@@ -397,7 +398,7 @@
         setError('');
 
         const response = await fetch(
-            `/api/admin/technologies/${id}`,
+            `${API_URL}/api/admin/technologies/${id}`,
             {
             method: 'PUT',
             credentials: 'include',
@@ -455,7 +456,7 @@
         setError('');
 
         const response = await fetch(
-            `/api/admin/technologies/${id}`,
+            `${API_URL}/api/admin/technologies/${id}`,
             {
             method: 'DELETE',
             credentials: 'include',

@@ -1,6 +1,7 @@
     import { useEffect, useMemo, useState } from 'react';
     import AdminLayout from '../../components/admin/AdminLayout/AdminLayout';
     import './AdminProjects.css';
+    const API_URL = import.meta.env.VITE_API_URL || '';
 
     const emptyForm = {
     title: '',
@@ -94,9 +95,9 @@
             categoriesData,
             technologiesData,
         ] = await Promise.all([
-            apiRequest('/api/admin/projects'),
-            apiRequest('/api/admin/categories'),
-            apiRequest('/api/admin/technologies'),
+            apiRequest(`${API_URL}/api/admin/projects`),
+            apiRequest(`${API_URL}/api/admin/categories`),
+            apiRequest(`${API_URL}/api/admin/technologies`),
         ]);
 
         setProjects(projectsData);
@@ -127,7 +128,7 @@
 
         try {
         const project = await apiRequest(
-            `/api/admin/projects/${projectId}`
+            `${API_URL}/api/admin/projects/${projectId}`
         );
 
         setEditingId(project.id);
@@ -295,8 +296,8 @@
         };
 
         const url = editingId
-            ? `/api/admin/projects/${editingId}`
-            : '/api/admin/projects';
+            ? `${API_URL}/api/admin/projects/${editingId}`
+            : `${API_URL}/api/admin/projects`;
 
         const method = editingId ? 'PUT' : 'POST';
 
@@ -335,7 +336,7 @@
 
         try {
         await apiRequest(
-            `/api/admin/projects/${project.id}`,
+            `${API_URL}/api/admin/projects/${project.id}`,
             {
             method: 'DELETE',
             }
@@ -359,11 +360,11 @@
 
         try {
         const details = await apiRequest(
-            `/api/admin/projects/${project.id}`
+            `${API_URL}/api/admin/projects/${project.id}`
         );
 
         await apiRequest(
-            `/api/admin/projects/${project.id}`,
+            `${API_URL}/api/admin/projects/${project.id}`,
             {
             method: 'PUT',
             body: JSON.stringify({

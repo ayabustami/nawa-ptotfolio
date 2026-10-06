@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout/AdminLayout';
 import './AdminDashboard.css';
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({

@@ -1,6 +1,7 @@
     import { useEffect, useState } from 'react';
     import AdminLayout from '../../components/admin/AdminLayout/AdminLayout';
     import './AdminCategories.css';
+    const API_URL = import.meta.env.VITE_API_URL || '';ر
 
     export default function AdminCategories() {
     const [categories, setCategories] = useState([]);
@@ -41,7 +42,7 @@
 
         try {
         const data = await apiRequest(
-            '/api/admin/categories'
+            `${API_URL}/api/admin/categories`
         );
 
         setCategories(data);
@@ -92,8 +93,8 @@
 
         try {
         const url = editingId
-            ? `/api/admin/categories/${editingId}`
-            : '/api/admin/categories';
+            ? `${API_URL}/api/admin/categories/${editingId}`
+            : `${API_URL}/api/admin/categories`;
 
         const method = editingId
             ? 'PUT'
@@ -142,7 +143,7 @@
 
         try {
         await apiRequest(
-            `/api/admin/categories/${category.id}`,
+            `${API_URL}/api/admin/categories/${category.id}`,
             {
             method: 'DELETE',
             }

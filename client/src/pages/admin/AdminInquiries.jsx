@@ -2,6 +2,7 @@
     import { NavLink } from 'react-router-dom';
     import AdminLayout from '../../components/admin/AdminLayout/AdminLayout';
     import './AdminInquiries.css';
+    const API_URL = import.meta.env.VITE_API_URL || '';
 
     const STATUS_OPTIONS = [
     { value: 'all', label: 'All statuses' },
@@ -73,7 +74,7 @@
         const query = params.toString();
 
         const response = await fetch(
-            `/api/admin/inquiries${query ? `?${query}` : ''}`,
+            `${API_URL}/api/admin/inquiries${query ? `?${query}` : ''}`,
             {
             credentials: 'include',
             }
@@ -118,7 +119,7 @@
 
         try {
         const response = await fetch(
-            `/api/admin/inquiries/${id}/status`,
+            `${API_URL}/api/admin/inquiries/${id}/status`,
             {
             method: 'PATCH',
             credentials: 'include',
@@ -173,7 +174,7 @@
 
         try {
         const response = await fetch(
-            `/api/admin/inquiries/${id}`,
+            `${API_URL}/api/admin/inquiries/${id}`,
             {
             method: 'DELETE',
             credentials: 'include',
