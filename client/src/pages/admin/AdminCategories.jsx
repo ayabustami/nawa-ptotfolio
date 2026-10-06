@@ -1,7 +1,7 @@
     import { useEffect, useState } from 'react';
     import AdminLayout from '../../components/admin/AdminLayout/AdminLayout';
     import './AdminCategories.css';
-    const API_URL = import.meta.env.VITE_API_URL || '';ر
+    const API_URL = import.meta.env.VITE_API_URL || '';
 
     export default function AdminCategories() {
     const [categories, setCategories] = useState([]);
