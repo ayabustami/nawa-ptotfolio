@@ -9,6 +9,7 @@
     import AdminInquiries from './pages/admin/AdminInquiries.jsx';
     import AdminTechnologies from './pages/admin/AdminTechnologies.jsx';
     
+    
 
     function ProjectDetails() {
     return (

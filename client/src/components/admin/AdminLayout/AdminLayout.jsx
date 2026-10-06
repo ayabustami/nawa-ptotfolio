@@ -1,6 +1,7 @@
     import { useEffect, useState } from 'react';
     import { NavLink, useNavigate } from 'react-router-dom';
     import './AdminLayout.css';
+    const API_URL = import.meta.env.VITE_API_URL || '';
 
     const navigation = [
     { label: 'Overview', path: '/admin', icon: '⌂' },
@@ -19,9 +20,10 @@
     useEffect(() => {
         async function loadAdmin() {
         try {
-            const response = await fetch('/api/admin/me', {
-            credentials: 'include',
-            });
+            const response = await fetch(`${API_URL}/api/admin/me`, {
+                credentials: 'include',
+                cache: 'no-store',
+                });
 
             if (!response.ok) {
             navigate('/admin/login', { replace: true });
@@ -42,9 +44,9 @@
         setLoggingOut(true);
 
         try {
-        await fetch('/api/admin/logout', {
-            method: 'POST',
-            credentials: 'include',
+       await fetch(`${API_URL}/api/admin/logout`, {
+        method: 'POST',
+        credentials: 'include',
         });
         } finally {
         navigate('/admin/login', { replace: true });
