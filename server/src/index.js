@@ -237,14 +237,14 @@ app.post('/api/admin/login', async (req, res) => {
       await createAdminSession(adminEmail);
 
     const secure =
-      process.env.NODE_ENV === 'production'
-        ? ' Secure;'
-        : '';
+  process.env.NODE_ENV === 'production'
+    ? ' Secure;'
+    : '';
 
-    res.setHeader(
-      'Set-Cookie',
-      `${getSessionCookieName()}=${encodeURIComponent(token)}; HttpOnly; SameSite=Strict; Path=/; Max-Age=43200;${secure}`
-    );
+res.setHeader(
+  'Set-Cookie',
+  `${getSessionCookieName()}=${encodeURIComponent(token)}; HttpOnly; SameSite=None; Path=/; Max-Age=43200;${secure}`
+);
 console.log('🔥 ADMIN LOGIN SUCCESS');
 
     res.json({
