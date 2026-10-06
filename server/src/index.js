@@ -11,8 +11,18 @@ import {
 
 const app = express();
 app.set('trust proxy', 1);
-const origins = (process.env.CORS_ORIGINS || '').split(',').map((s) => s.trim()).filter(Boolean);
-app.use(cors({ origin: origins.length ? origins : false }));
+const origins = (process.env.CORS_ORIGINS || '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: origins.length ? origins : false,
+    credentials: true,
+  })
+);
+
 app.use(express.json({ limit: '20kb' }));
 
 const PROJECTS_SQL = `
