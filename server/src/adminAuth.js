@@ -60,13 +60,27 @@ function parseCookies(cookieHeader = '') {
 
 export async function requireAdmin(req, res, next) {
   try {
-    const cookies = parseCookies(
-      req.headers.cookie
+    console.log('[AUTH] REQUIRE ADMIN');
+
+    const cookieHeader = req.headers.cookie || '';
+
+    console.log(
+      '[AUTH] COOKIE HEADER EXISTS:',
+      Boolean(cookieHeader)
     );
+
+    const cookies = parseCookies(cookieHeader);
 
     const token = cookies[SESSION_COOKIE];
 
+    console.log(
+      '[AUTH] SESSION COOKIE EXISTS:',
+      Boolean(token)
+    );
+
     if (!token) {
+      console.log('[AUTH] REQUIRE ADMIN → 401 NO COOKIE');
+
       return res.status(401).json({
         error: 'Authentication required.'
       });
@@ -88,7 +102,16 @@ export async function requireAdmin(req, res, next) {
       [tokenHash]
     );
 
+    console.log(
+      '[AUTH] SESSION FOUND:',
+      Boolean(rows[0])
+    );
+
     if (!rows[0]) {
+      console.log(
+        '[AUTH] REQUIRE ADMIN → 401 INVALID OR EXPIRED SESSION'
+      );
+
       return res.status(401).json({
         error: 'Authentication required.'
       });
@@ -108,9 +131,14 @@ export async function requireAdmin(req, res, next) {
       sessionId: rows[0].id
     };
 
+    console.log(
+      '[AUTH] REQUIRE ADMIN → SUCCESS:',
+      rows[0].admin_email
+    );
+
     next();
   } catch (error) {
-    console.error(error);
+    console.error('[AUTH] REQUIRE ADMIN ERROR:', error);
 
     res.status(500).json({
       error: 'Authentication check failed.'

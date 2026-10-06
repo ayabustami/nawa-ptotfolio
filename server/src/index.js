@@ -185,9 +185,12 @@ app.post('/api/contact', async (req, res) => {
     res.status(500).json({ error: 'Could not save your message. Please try again.' });
   }
 });
+
 app.post('/api/admin/login', async (req, res) => {
+      console.log('[AUTH] LOGIN REQUEST');
 
   try {
+
     const { email, password } = req.body || {};
 
 
@@ -234,6 +237,8 @@ app.post('/api/admin/login', async (req, res) => {
 
     const { token, expiresAt } =
       await createAdminSession(adminEmail);
+      console.log('[AUTH] SESSION CREATED');
+console.log('[AUTH] expiresAt:', expiresAt);
 
     const secure =
   process.env.NODE_ENV === 'production'
@@ -262,12 +267,8 @@ res.setHeader(
   }
 });
 app.get('/api/admin/me', requireAdmin, (req, res) => {
-  console.log('[ADMIN ME] request received');
-
-  console.log('[ADMIN ME] authenticated admin:', {
-    email: req.admin?.email,
-    hasAdmin: Boolean(req.admin),
-  });
+  console.log('[AUTH] ME REQUEST');
+  console.log('[AUTH] ME ADMIN:', req.admin?.email);
 
   res.set('Cache-Control', 'no-store');
 
@@ -278,14 +279,7 @@ app.get('/api/admin/me', requireAdmin, (req, res) => {
     }
   });
 });
-app.get('/api/admin/me', requireAdmin, (req, res) => {
-  res.json({
-    authenticated: true,
-    admin: {
-      email: req.admin.email
-    }
-  });
-});
+
 app.post('/api/admin/logout', deleteAdminSession);
 // ============================================================
 // ADMIN PROJECTS MANAGEMENT
